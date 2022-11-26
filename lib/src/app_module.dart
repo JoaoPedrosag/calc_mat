@@ -1,10 +1,15 @@
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:matapp/src/modules/calc/calc_view.dart';
+import 'package:matapp/src/modules/calc/controller_calc.dart';
 import 'package:matapp/src/modules/splash/splash_page.dart';
 
 class AppModule extends Module {
   @override
-  List<Bind> get binds => [];
+  List<Bind> get binds => [
+        Bind.lazySingleton(
+          (i) => CalcController(),
+        ),
+      ];
 
   @override
   List<ModularRoute> get routes => [
