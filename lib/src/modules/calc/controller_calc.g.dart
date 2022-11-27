@@ -263,11 +263,33 @@ mixin _$CalcController on _CalcController, Store {
   }
 
   @override
-  void calculateCilindro(dynamic altura, dynamic raio) {
+  void calculateCilindro(dynamic raio, dynamic altura) {
     final _$actionInfo = _$_CalcControllerActionController.startAction(
         name: '_CalcController.calculateCilindro');
     try {
-      return super.calculateCilindro(altura, raio);
+      return super.calculateCilindro(raio, altura);
+    } finally {
+      _$_CalcControllerActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void calculatePiramide(dynamic area, dynamic altura) {
+    final _$actionInfo = _$_CalcControllerActionController.startAction(
+        name: '_CalcController.calculatePiramide');
+    try {
+      return super.calculatePiramide(area, altura);
+    } finally {
+      _$_CalcControllerActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void calculateCone(dynamic pi, dynamic base, dynamic altura) {
+    final _$actionInfo = _$_CalcControllerActionController.startAction(
+        name: '_CalcController.calculateCone');
+    try {
+      return super.calculateCone(pi, base, altura);
     } finally {
       _$_CalcControllerActionController.endAction(_$actionInfo);
     }

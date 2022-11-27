@@ -14,9 +14,6 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final controller = Modular.get<CalcController>();
-  final a = TextEditingController();
-  final b = TextEditingController();
-  final c = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
   String? selectItems;
@@ -33,8 +30,8 @@ class _HomePageState extends State<HomePage> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.08,
-                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height * 0.06,
+                      width: MediaQuery.of(context).size.width * 0.8,
                       child: Container(
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
@@ -58,7 +55,7 @@ class _HomePageState extends State<HomePage> {
                                 ),
                                 SizedBox(
                                   width:
-                                      MediaQuery.of(context).size.width * 0.04,
+                                      MediaQuery.of(context).size.width * 0.05,
                                 ),
                                 Text(
                                   controller.selectedItem,
@@ -79,7 +76,7 @@ class _HomePageState extends State<HomePage> {
                                             width: MediaQuery.of(context)
                                                     .size
                                                     .width *
-                                                0.4,
+                                                0.3,
                                           ),
                                           Text(
                                             item,
@@ -112,16 +109,22 @@ class _HomePageState extends State<HomePage> {
                     height: MediaQuery.of(context).size.height * 0.02,
                   ),
                   controller.selectedItem != 'Selecione uma formula'
-                      ? Image(width: 300, image: AssetImage(controller.image))
+                      ? Image(
+                          width: 250,
+                          color: Colors.blue,
+                          image: AssetImage(controller.image))
                       : Container(),
+                  const SizedBox(
+                    height: 18,
+                  ),
                   controller.a
                       ? Padding(
-                          padding: const EdgeInsets.all(8.0),
+                          padding: const EdgeInsets.all(12.0),
                           child: SizedBox(
                             width: MediaQuery.of(context).size.width * 0.4,
                             child: CustomTextFormField(
                               labelText: controller.firstInput,
-                              controller: a,
+                              controller: controller.inputA,
                               keyboardType: TextInputType.number,
                             ),
                           ),
@@ -134,7 +137,7 @@ class _HomePageState extends State<HomePage> {
                             width: MediaQuery.of(context).size.width * 0.4,
                             child: CustomTextFormField(
                               labelText: controller.secondInput,
-                              controller: b,
+                              controller: controller.inputB,
                               keyboardType: TextInputType.number,
                             ),
                           ),
@@ -147,13 +150,13 @@ class _HomePageState extends State<HomePage> {
                             width: MediaQuery.of(context).size.width * 0.4,
                             child: CustomTextFormField(
                               labelText: controller.thirdInput,
-                              controller: c,
+                              controller: controller.inputC,
                               keyboardType: TextInputType.number,
                             ),
                           ),
                         )
                       : Container(),
-                  a.text.isNotEmpty && b.text.isNotEmpty
+                  controller.selectedItem != 'Selecione uma formula'
                       ? SizedBox(
                           width: MediaQuery.of(context).size.width * 0.7,
                           height: MediaQuery.of(context).size.height * 0.07,
@@ -166,10 +169,8 @@ class _HomePageState extends State<HomePage> {
                             ),
                             onPressed: () {
                               if (_formKey.currentState!.validate()) {
-                                controller.btnCal = true;
                                 controller.btnReset = true;
-                                controller.calculateCilindro(
-                                    double.parse(a.text), double.parse(b.text));
+                                controller.calculateForm();
                               }
                             },
                             child: const Text('Calcular'),
@@ -191,9 +192,6 @@ class _HomePageState extends State<HomePage> {
                               ),
                             ),
                             onPressed: () {
-                              a.clear();
-                              b.clear();
-                              c.clear();
                               controller.resetVariables();
                             },
                             child: const Text('Limpar'),

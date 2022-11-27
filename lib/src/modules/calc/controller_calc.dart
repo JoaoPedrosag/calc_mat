@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 part 'controller_calc.g.dart';
 
@@ -12,9 +13,9 @@ abstract class _CalcController with Store {
 
   final List<String> items = [
     'Prisma',
-    'Cilindro',
+    'Cilindro Reto',
     'Cone',
-    'Pirâmide',
+    'Pirâmide Triangular',
   ];
 
   final pi = 3.14;
@@ -42,6 +43,10 @@ abstract class _CalcController with Store {
   @observable
   String selectedItem = 'Selecione uma formula';
 
+  final inputA = TextEditingController();
+  final inputB = TextEditingController();
+  final inputC = TextEditingController();
+
   @action
   void resetVariables() {
     selectedItem = 'Selecione uma formula';
@@ -52,6 +57,9 @@ abstract class _CalcController with Store {
     a = false;
     b = false;
     c = false;
+    inputA.clear();
+    inputB.clear();
+    inputC.clear();
   }
 
   @action
@@ -69,9 +77,9 @@ abstract class _CalcController with Store {
     a = true;
     b = true;
     c = false;
-    firstInput = 'Valor de r';
+    firstInput = 'Valor do raio';
     secondInput = 'Valor da altura';
-    thirdInput = 'Valor de C';
+    thirdInput = '';
   }
 
   @action
@@ -79,7 +87,7 @@ abstract class _CalcController with Store {
     a = true;
     b = true;
     c = false;
-    firstInput = 'Valor de r';
+    firstInput = 'Valor do raio';
     secondInput = 'Valor da altura';
     thirdInput = '';
   }
@@ -88,10 +96,10 @@ abstract class _CalcController with Store {
   void changePiramide() {
     a = true;
     b = true;
-    c = true;
-    firstInput = 'Valor de b';
-    secondInput = 'Valor do c';
-    thirdInput = 'Valor da altura';
+    c = false;
+    firstInput = 'Base da pirâmide';
+    secondInput = 'Altura da pirâmide';
+    thirdInput = '';
   }
 
   @action
@@ -104,22 +112,43 @@ abstract class _CalcController with Store {
     if (selectedItem == 'Prisma') {
       image = 'assets/prisma.png';
       changePrisma();
-    } else if (selectedItem == 'Cilindro') {
+    } else if (selectedItem == 'Cilindro Reto') {
       image = 'assets/cilindro.png';
       changeCilindro();
     } else if (selectedItem == 'Cone') {
+      changeCone();
       image = 'assets/cone.png';
-    } else if (selectedItem == 'Pirâmide') {
+    } else if (selectedItem == 'Pirâmide Triangular') {
       image = 'assets/piramide.png';
       changePiramide();
     }
   }
 
   @action
-  void calculateCilindro(altura, raio) {
-    print([altura, raio]);
+  void calculateCilindro(raio, altura) {
     double volume = pi * (raio * raio) * altura;
     volumeController = volume.toStringAsFixed(2);
-    print(volumeController);
+  }
+
+  @action
+  void calculatePiramide(area, altura) {
+    double volume = (area * area) * altura / 3;
+    volumeController = volume.toStringAsFixed(2);
+  }
+
+  @action
+  void calculateCone(pi, base, altura) {
+    double volume = pi * (base * base) * altura / 3;
+    volumeController = volume.toStringAsFixed(2);
+  }
+
+  void calculateForm() {
+    if (selectedItem == 'Cilindro Reto') {
+      calculateCilindro(double.parse(inputA.text), double.parse(inputB.text));
+    } else if (selectedItem == 'Pirâmide Triangular') {
+      calculatePiramide(double.parse(inputA.text), double.parse(inputB.text));
+    } else if (selectedItem == 'Cone') {
+      calculateCone(pi, double.parse(inputA.text), double.parse(inputB.text));
+    }
   }
 }
