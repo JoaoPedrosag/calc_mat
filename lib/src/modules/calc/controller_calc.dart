@@ -9,10 +9,13 @@ abstract class _CalcController with Store {
   String image = '';
 
   @observable
+  String imageHelp = '';
+
+  @observable
   String volumeController = '';
 
   final List<String> items = [
-    'Prisma',
+    // 'Prisma',
     'Cilindro Reto',
     'Cone',
     'Pirâmide Triangular',
@@ -114,12 +117,15 @@ abstract class _CalcController with Store {
       changePrisma();
     } else if (selectedItem == 'Cilindro Reto') {
       image = 'assets/cilindro.png';
+      imageHelp = 'assets/explicacao_cilindro.png';
       changeCilindro();
     } else if (selectedItem == 'Cone') {
       changeCone();
+      imageHelp = 'assets/explicacao_cone.png';
       image = 'assets/cone.png';
     } else if (selectedItem == 'Pirâmide Triangular') {
       image = 'assets/piramide.png';
+      imageHelp = 'assets/explicacao_piramide.png';
       changePiramide();
     }
   }

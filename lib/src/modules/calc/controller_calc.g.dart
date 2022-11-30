@@ -25,6 +25,22 @@ mixin _$CalcController on _CalcController, Store {
     });
   }
 
+  late final _$imageHelpAtom =
+      Atom(name: '_CalcController.imageHelp', context: context);
+
+  @override
+  String get imageHelp {
+    _$imageHelpAtom.reportRead();
+    return super.imageHelp;
+  }
+
+  @override
+  set imageHelp(String value) {
+    _$imageHelpAtom.reportWrite(value, super.imageHelp, () {
+      super.imageHelp = value;
+    });
+  }
+
   late final _$volumeControllerAtom =
       Atom(name: '_CalcController.volumeController', context: context);
 
@@ -299,6 +315,7 @@ mixin _$CalcController on _CalcController, Store {
   String toString() {
     return '''
 image: ${image},
+imageHelp: ${imageHelp},
 volumeController: ${volumeController},
 a: ${a},
 b: ${b},
