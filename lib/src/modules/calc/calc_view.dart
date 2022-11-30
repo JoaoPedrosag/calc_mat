@@ -240,6 +240,7 @@ class _HomePageState extends State<HomePage> {
                             onPressed: () {
                               if (_formKey.currentState!.validate()) {
                                 controller.btnReset = true;
+
                                 showModalBottomSheet(
                                   context: context,
                                   builder: (BuildContext context) {
@@ -298,8 +299,10 @@ class _HomePageState extends State<HomePage> {
                                                   0.04,
                                               child: ElevatedButton(
                                                   child: const Text('Fechar'),
-                                                  onPressed: () =>
-                                                      Modular.to.pop()),
+                                                  onPressed: () {
+                                                    Modular.to.pop();
+                                                    controller.resetSInputs();
+                                                  }),
                                             ),
                                           ],
                                         ),

@@ -66,6 +66,13 @@ abstract class _CalcController with Store {
   }
 
   @action
+  void resetSInputs() {
+    inputA.clear();
+    inputB.clear();
+    inputC.clear();
+  }
+
+  @action
   void changePrisma() {
     a = true;
     b = true;

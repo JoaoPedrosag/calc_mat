@@ -213,6 +213,17 @@ mixin _$CalcController on _CalcController, Store {
   }
 
   @override
+  void resetSInputs() {
+    final _$actionInfo = _$_CalcControllerActionController.startAction(
+        name: '_CalcController.resetSInputs');
+    try {
+      return super.resetSInputs();
+    } finally {
+      _$_CalcControllerActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   void changePrisma() {
     final _$actionInfo = _$_CalcControllerActionController.startAction(
         name: '_CalcController.changePrisma');
